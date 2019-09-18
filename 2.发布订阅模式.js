@@ -14,7 +14,7 @@ function subscribe(listener) {
 }
 
 function changeCount(count) {
-  stete.count = count;
+  state.count = count;
   /*当 count 改变的时候，我们要去通知所有的订阅者*/
   for (let i = 0; i < listeners.length; i++) {
     const listener = listeners[i];

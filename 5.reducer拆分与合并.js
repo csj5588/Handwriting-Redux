@@ -41,6 +41,54 @@ function InfoReducer(state, action) {
   }
 }
 
+// handwriting第三遍
+const reducers = comReducer({
+  count: countReducer,
+  info: InfoReducer,
+})
+
+function combReducers(reducers) {
+  const reducerKeysArr = Object.keys(reducers);
+
+  return function comb (state = {}, action) {
+    const nextState = state;
+
+    for (let i = 0; i < reducerKeysArr.length; i++) {
+      const key = reducerKeysArr[i];
+      const reducerChild = reducers[key];
+      const nextStateForKey = reducerChild(nextState[key], action);
+
+      nextState[key] = nextStateForKey;
+    }
+    return nextState;
+  }
+
+}
+
+// 第二遍
+const reducers = comReducers({
+  counter: counterReducer,
+  info: InfoReducer,
+})
+
+function comb(reducer) {
+  const reducerKeysArr = Object.keys(reducer)
+
+  return function reducerAll(state = {}, action) {
+    const nextState = state;
+
+    for (let i = 0; i < reducerKeysArr; i++) {
+      const key = reducerKeysArr[i];
+      const childReducer = reducers[key];
+      const nextStateForKey = childReducer(nextState[key], action);
+
+      nextState[key] = nextStateForKey
+    }
+    return nextState;
+  }
+}
+
+// 第一遍
 const reducer = combineReducers({
   counter: counterReducer,
   info: InfoReducer
@@ -57,6 +105,7 @@ function combineReducers(reducers) {
       const key = reducerKeys[i];
       const reducer = reducers[key];
       const previousStateForKey = state[key];
+      // action 会把所有reducer都走一遍
       const nextStateForKey = reducer(previousStateForKey, action);
 
       nextState[key] = nextStateForKey;

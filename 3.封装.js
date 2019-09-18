@@ -32,8 +32,8 @@ let initState = {
     count: 0,
   },
   info: {
-    name: '',
-    description: '',
+    name: 'name',
+    description: 'juryy',
   }
 }
 
