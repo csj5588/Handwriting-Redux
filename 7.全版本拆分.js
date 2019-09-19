@@ -88,8 +88,6 @@ function createStore(comb) {
   function dispatch(action, states) {
     const Comreducer = comb
     const nextState = Comreducer(states, action)
-    console.log(state);
-    console.log(nextState);
     state = nextState;
 
     for (let i = 0; i < listeners.length; i++) {
@@ -114,7 +112,7 @@ function createStore(comb) {
 const store = createStore(combineReducers(reducer));
 
 store.subscribe(() => {
-  // console.log(store.getState())
+  console.log(store.getState())
 });
 
 store.dispatch({ type: 'SET_NAME', name: '雍和' });
